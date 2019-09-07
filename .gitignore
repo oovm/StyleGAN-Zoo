@@ -1,0 +1,13 @@
+# ide
+*.idea
+*.iml
+
+# python
+
+
+
+
+# models
+*.pkl
+*.pth
+*.mat
