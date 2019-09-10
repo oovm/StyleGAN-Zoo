@@ -25,18 +25,6 @@ model = Model(
     mapping_layers=cfg['MAPPING_LAYERS'],
     channels=3
 )
-
-'''
-data = torch.load('../Asuka-512x512.pth')['models']
-
-model.generator.load_state_dict(data['generator_s'], strict=False)
-model.mapping.load_state_dict(data['mapping_fl_s'], strict=False)
-model.dlatent_avg.load_state_dict(data['dlatent_avg'], strict=False)
-
-torch.save(model.state_dict(), '../Asuka-512x512.mat')
-'''
-
-rnd = np.random.RandomState(5)
 model.load_state_dict(torch.load('../Asuka-512x512.mat'), strict=False)
 
 
@@ -48,7 +36,7 @@ class StyleGAN:
 
     def output(self, device='cpu'):
         if self.gene is None:
-            latents = rnd.randn(1, cfg['LATENT_SPACE_SIZE'])
+            latents = torch.randn(1, 512)
             self.gene = torch.tensor(latents).float().to(device)
         if self.data is None:
             with torch.no_grad():
