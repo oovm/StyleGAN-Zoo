@@ -1,31 +1,5 @@
-from model import Model
-from net import *
 import torch
-import numpy as np
-
-cfg = {
-    'DLATENT_AVG_BETA': 0.995,
-    'LATENT_SPACE_SIZE': 512,
-    'LAYER_COUNT': 8,
-    'MAPPING_LAYERS': 8,
-    'MAX_CHANNEL_COUNT': 512,
-    'START_CHANNEL_COUNT': 32,
-    'STYLE_MIXING_PROB': 0.9,
-    'TRUNCATIOM_CUTOFF': 8,
-    'TRUNCATIOM_PSI': 0.7,
-}
-
-model = Model(
-    startf=cfg['START_CHANNEL_COUNT'],
-    layer_count=cfg['LAYER_COUNT'],
-    maxf=cfg['MAX_CHANNEL_COUNT'],
-    latent_size=cfg['LATENT_SPACE_SIZE'],
-    truncation_psi=cfg['TRUNCATIOM_PSI'],
-    truncation_cutoff=cfg['TRUNCATIOM_CUTOFF'],
-    mapping_layers=cfg['MAPPING_LAYERS'],
-    channels=3
-)
-model.load_state_dict(torch.load('../Asuka-512x512.mat'), strict=False)
+from net import *
 
 
 class StyleGAN:

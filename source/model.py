@@ -14,10 +14,10 @@
 # ==============================================================================
 
 import torch
-from torch import nn
 import random
-from StyleGANZoo.source.net import Generator, Mapping
 import numpy as np
+from torch import nn
+from net import Generator, Mapping
 
 
 class DLatent(nn.Module):
