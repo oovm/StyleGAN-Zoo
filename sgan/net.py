@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
-import lreq as ln
+import sgan.lreq as ln
 import numpy as np
 import torch
 from torch import nn

@@ -17,7 +17,7 @@ import torch
 import random
 import numpy as np
 from torch import nn
-from net import Generator, Mapping
+from sgan.net import Generator, Mapping
 
 
 class DLatent(nn.Module):

@@ -1,5 +1,5 @@
 import torch
-from source.model import Model
+from sgan.model import Model
 
 dependencies = ['torch']
 
