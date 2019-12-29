@@ -15,6 +15,10 @@ def get_model(name: str):
         model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_asuka', pretrained=True)
         LOADED_MODEL[m] = model
         return model
+    elif m == 'horo':
+        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_horo', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
     else:
         return 0
 
@@ -53,5 +57,5 @@ class StyleGAN(WLSerializable):
 
 
 if __name__ == "__main__":
-    s = StyleGAN('asuka')
+    s = StyleGAN('horo')
     s.show()
