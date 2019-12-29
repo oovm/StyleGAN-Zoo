@@ -112,19 +112,25 @@ def generate(
     model.to(device)
     # batch eval
     with torch.no_grad():
-        latents = torch.randn(math.ceil(num / batch_size) * batch_size, 512).to(device)
+        gene = []
         data = []
         for i in range(math.ceil(num / batch_size)):
-            batch = model.generate(model.out_layer, z=latents[batch_size * i:batch_size * (i + 1)])
-            data.append(batch)
+            latents = torch.randn(batch_size, 512).to(device)
+            batch = model.generate(model.out_layer, z=latents)
+            if save is not None:
+                o = [StyleGAN.new(method, i.unsqueeze(0), j.unsqueeze(0)) for i, j in zip(latents.cpu(), batch.cpu())]
+                for j in o:
+                    j.save(path=save)
+            else:
+                gene.append(latents.cpu())
+                data.append(batch.cpu())
+    if save is None:
+        gene = torch.stack(gene, dim=1)
         data = torch.stack(data, dim=1)
-        print(latents.shape)
-        print(data.shape)
-    o = [StyleGAN.new(method, i.unsqueeze(0).cpu(), j.unsqueeze(0).cpu()) for i, j in zip(latents, data)]
-    if save is not None:
-        for i in o:
-            i.save(path=save)
-    return o[:num]
+        o = [StyleGAN.new(method, i.unsqueeze(0), j.unsqueeze(0)) for i, j in zip(gene, data)]
+        return o[:num]
+    else:
+        pass
 
 
 def reinitialize():
@@ -134,9 +140,9 @@ def reinitialize():
 
 
 if __name__ == "__main__":
-    #s = StyleGAN('asuka')
-    #s.output(device='cuda')
-    #s.show()
-    #s.save('.')
+    # s = StyleGAN('asuka')
+    # s.output(device='cuda')
+    # s.show()
+    # s.save('.')
     m = generate('asuka', 5)
-    generate('asuka', 2, save='.')
+    # generate('asuka', 2, save='.')
