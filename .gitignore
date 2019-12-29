@@ -11,3 +11,4 @@ test.py
 *.pkl
 *.pth
 *.mat
+*.wxf

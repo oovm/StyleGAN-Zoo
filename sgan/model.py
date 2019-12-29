@@ -34,6 +34,7 @@ class Model(nn.Module):
     ):
         super(Model, self).__init__()
         self.model = model
+        self.out_layer = layer_count - 1
         self.mapping = Mapping(
             num_layers=2 * layer_count,
             latent_size=latent_size,

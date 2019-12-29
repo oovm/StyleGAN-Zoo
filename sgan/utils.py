@@ -4,11 +4,17 @@ from wolframclient.serializers.serializable import WLSerializable
 
 from sgan.net import *
 
+LOADED_MODEL = {}
+
 
 def get_model(name: str):
     m = name.lower()
-    if m == 'asuka':
-        return torch.hub.load('GalAster/StyleGAN-Zoo', 'style_asuka', pretrained=True)
+    if m in LOADED_MODEL:
+        return LOADED_MODEL[m]
+    elif m == 'asuka':
+        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_asuka', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
     else:
         return 0
 
@@ -31,7 +37,8 @@ class StyleGAN(WLSerializable):
         return self.data
 
     def show(self):
-        plt.imshow(self.output()[0].permute(1, 2, 0))
+        img = self.output()[0].permute(1, 2, 0)
+        plt.imshow(img * 0.5 + 0.5)
 
     def save(self, path: str):
         pass
