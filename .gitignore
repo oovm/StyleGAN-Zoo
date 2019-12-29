@@ -3,6 +3,7 @@
 *.iml
 
 # python
+stylegan_zoo.egg-info
 __pycache__
 dist/
 eval.py

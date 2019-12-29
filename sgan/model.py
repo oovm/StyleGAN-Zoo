@@ -16,7 +16,7 @@
 import torch
 from torch import nn
 import random
-from net import Generator, Mapping
+from sgan.net import Generator, Mapping
 import numpy as np
 
 

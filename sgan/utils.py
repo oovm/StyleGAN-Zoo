@@ -44,7 +44,8 @@ class StyleGAN(WLSerializable):
         pass
 
     def to_wl(self):
-        return ToPILImage()(self.output()[0])
+        img = self.output().clamp(-1, 1)[0]
+        return ToPILImage()(img * 0.5 + 0.5)
 
     @staticmethod
     def new(method, gene, data):
