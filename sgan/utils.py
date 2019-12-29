@@ -1,5 +1,6 @@
 import os
 import re
+import math
 import matplotlib.pyplot as plt
 from torchvision.transforms import ToPILImage
 from wolframclient.serializers.serializable import WLSerializable
@@ -102,19 +103,28 @@ class StyleGAN(WLSerializable):
 def generate(
         method, num,
         device='cuda', save=None,
+        batch_size=16,
         truncation_psi=0.75
 ):
+    # prepare model
+    model = get_model(method)
+    model.truncation_psi = truncation_psi
+    model.to(device)
+    # batch eval
     with torch.no_grad():
-        latents = torch.randn(num, 512).to(device)
-        model = get_model(method)
-        model.truncation_psi = truncation_psi
-        model.to(device)
-        data = model.generate(model.out_layer, z=latents)
+        latents = torch.randn(math.ceil(num / batch_size) * batch_size, 512).to(device)
+        data = []
+        for i in range(math.ceil(num / batch_size)):
+            batch = model.generate(model.out_layer, z=latents[batch_size * i:batch_size * (i + 1)])
+            data.append(batch)
+        data = torch.stack(data, dim=1)
+        print(latents.shape)
+        print(data.shape)
     o = [StyleGAN.new(method, i.unsqueeze(0).cpu(), j.unsqueeze(0).cpu()) for i, j in zip(latents, data)]
     if save is not None:
         for i in o:
             i.save(path=save)
-    return o
+    return o[:num]
 
 
 def reinitialize():
@@ -124,9 +134,9 @@ def reinitialize():
 
 
 if __name__ == "__main__":
-    s = StyleGAN('asuka')
-    s.output(device='cuda')
-    s.show()
-    s.save('.')
+    #s = StyleGAN('asuka')
+    #s.output(device='cuda')
+    #s.show()
+    #s.save('.')
     m = generate('asuka', 5)
     generate('asuka', 2, save='.')
