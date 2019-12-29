@@ -1,4 +1,5 @@
 import os
+import re
 import matplotlib.pyplot as plt
 from torchvision.transforms import ToPILImage
 from wolframclient.serializers.serializable import WLSerializable
@@ -10,7 +11,7 @@ LOADED_MODEL = {}
 
 
 def get_model(name: str):
-    m = name.lower()
+    m = re.sub('[-_ ]', '', name).lower()
     if m in LOADED_MODEL:
         return LOADED_MODEL[m]
     elif m == 'asuka':
