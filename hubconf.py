@@ -1,11 +1,11 @@
 import torch
-from sgan.model import Model
+from sgan.model import Model as _m
 
 dependencies = ['torch']
 
 
 def style_asuka(pretrained=False):
-    model = Model(
+    model = _m(
         channels=3,
         mapping_layers=8,
         latent_size=512,
@@ -16,6 +16,7 @@ def style_asuka(pretrained=False):
 
         truncation_psi=0.75,
         truncation_cutoff=8,
+        model='asuka'
     )
     if pretrained:
         checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.0.0/Asuka-512x512.mat'

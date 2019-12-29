@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
-import sgan.lreq as ln
+import lreq as ln
 import numpy as np
 import torch
 from torch import nn
@@ -281,8 +281,47 @@ class Generator(nn.Module):
             x = x.repeat(1, 3, 1, 1)
         return x
 
-    def forward(self, styles, lod, remove_blob=True):
-        return self.decode(styles, lod, remove_blob)
+    def decode_asuka(self, styles, lod, remove_blob=True):
+        x = self.const
+        _x = None
+        prune_at_layer = 1
+
+        for i in range(lod + 1):
+            if i <= prune_at_layer or not remove_blob:
+                x = self.decode_block[i].forward(x, styles[:, 2 * i + 0], styles[:, 2 * i + 1])
+                if remove_blob and i == prune_at_layer:
+                    _x = x.clone()
+                    ch80 = _x[:, 80]
+                    ch73 = _x[:, 73]
+
+                    ch80[ch80 > torch.max(ch80) * 0.9] = 0
+                    ch73[ch73 > torch.max(ch73) * 0.9] = 0
+
+                    _x[:, 80] = ch80
+                    _x[:, 73] = ch73
+
+                    # plt.hist((torch.max(torch.max(x, dim=2)[0], dim=2)[0]).cpu().flatten().numpy(), bins=300)
+                    # plt.show()
+            else:
+                x, _x = self.decode_block[i].forward_double(x, _x, styles[:, 2 * i + 0], styles[:, 2 * i + 1])
+
+        if _x is not None:
+            x = _x
+        if lod == 7:
+            x = self.to_rgb[lod](x)
+        else:
+            x = x.max(dim=1, keepdim=True)[0]
+            x = x - x.min()
+            x = x / x.max()
+            x = torch.pow(x, 1.0 / 2.2)
+            x = x.repeat(1, 3, 1, 1)
+        return x
+
+    def forward(self, styles, lod, remove_blob=True, method='normal'):
+        if method == 'asuka':
+            return self.decode_asuka(styles, lod, remove_blob)
+        else:
+            return self.decode(styles, lod, remove_blob)
 
 
 class MappingBlock(nn.Module):

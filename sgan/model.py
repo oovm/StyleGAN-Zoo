@@ -14,10 +14,10 @@
 # ==============================================================================
 
 import torch
-import random
-import numpy as np
 from torch import nn
-from sgan.net import Generator, Mapping
+import random
+from net import Generator, Mapping
+import numpy as np
 
 
 class DLatent(nn.Module):
@@ -28,23 +28,27 @@ class DLatent(nn.Module):
 
 
 class Model(nn.Module):
-    def __init__(self, startf=32, maxf=256, layer_count=3, latent_size=128, mapping_layers=5, dlatent_avg_beta=None,
-                 truncation_psi=None, truncation_cutoff=None, style_mixing_prob=None, channels=3):
+    def __init__(
+            self, startf=32, maxf=256, layer_count=3, latent_size=128, mapping_layers=5, dlatent_avg_beta=None,
+            truncation_psi=None, truncation_cutoff=None, style_mixing_prob=None, channels=3, model='normal'
+    ):
         super(Model, self).__init__()
-
+        self.model = model
         self.mapping = Mapping(
             num_layers=2 * layer_count,
             latent_size=latent_size,
             dlatent_size=latent_size,
             mapping_fmaps=latent_size,
-            mapping_layers=mapping_layers)
+            mapping_layers=mapping_layers
+        )
 
         self.generator = Generator(
             startf=startf,
             layer_count=layer_count,
             maxf=maxf,
             latent_size=latent_size,
-            channels=channels)
+            channels=channels
+        )
 
         self.dlatent_avg = DLatent(latent_size, self.mapping.num_layers)
         self.latent_size = latent_size
@@ -79,7 +83,7 @@ class Model(nn.Module):
             coefs = torch.where(layer_idx < self.truncation_cutoff, self.truncation_psi * ones, ones)
             styles = torch.lerp(self.dlatent_avg.buff.data, styles, coefs)
 
-        rec = self.generator.forward(styles, lod, remove_blob)
+        rec = self.generator.forward(styles, lod, remove_blob, method=self.model)
         return rec
 
     def forward(self, x, lod, blend_factor, d_train):
