@@ -25,6 +25,10 @@ def get_model(name: str):
         model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_ffhq', pretrained=True)
         LOADED_MODEL[m] = model
         return model
+    elif m == 'baby':
+        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_baby', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
     else:
         return AttributeError()
 
@@ -44,6 +48,20 @@ class StyleGAN(WLSerializable):
                 model = get_model(self.method)
                 model.to(device)
                 self.data = model.generate(model.out_layer, z=self.gene)
+        return self.data
+
+    def forward(self, device='cpu', truncation_psi=0.5):
+        """
+        This will permanently change the network settings!
+        """
+        if self.gene is None:
+            latents = torch.randn(1, 512)
+            self.gene = torch.tensor(latents).float().to(device)
+        with torch.no_grad():
+            model = get_model(self.method)
+            model.truncation_psi = truncation_psi
+            model.to(device)
+            self.data = model.generate(model.out_layer, z=self.gene)
         return self.data
 
     def show(self):
@@ -67,11 +85,17 @@ class StyleGAN(WLSerializable):
         return StyleGAN(method, gene=gene, data=data)
 
 
-def generate(method, num, device='cuda', save=False):
+def generate(method, num, device='cuda', save=None):
     pass
 
 
+def reinitialize():
+    global LOADED_MODEL
+    LOADED_MODEL = {}
+    torch.hub.list('GalAster/StyleGAN-Zoo', force_reload=True)
+
+
 if __name__ == "__main__":
-    s = StyleGAN('horo')
+    s = StyleGAN('asuka')
     s.show()
-    s.save('..')
+    s.save('.')

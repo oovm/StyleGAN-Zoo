@@ -37,7 +37,7 @@ def upscale2d(x, factor=2):
     # x = x.repeat(1, 1, 1, factor, 1, factor)
     # x = torch.reshape(x, [-1, s[1], s[2] * factor, s[3] * factor])
     # return x
-    return F.upsample(x, scale_factor=factor, mode='bilinear', align_corners=True)
+    return F.interpolate(x, scale_factor=factor, mode='bilinear', align_corners=True)
 
 
 class Blur(nn.Module):

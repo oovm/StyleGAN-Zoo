@@ -1,1 +1,1 @@
-from .utils import StyleGAN, LOADED_MODEL
+from .utils import StyleGAN, LOADED_MODEL, reinitialize, generate

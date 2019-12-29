@@ -1,4 +1,5 @@
 # ide
+.vscode/
 .idea/
 *.iml
 
@@ -9,7 +10,9 @@ dist/
 eval.py
 test.py
 
-
+# test
+*-gene.txt
+*-show.png
 
 # models
 *.pkl
