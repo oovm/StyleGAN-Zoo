@@ -8,7 +8,7 @@ from numpy import savetxt
 from sgan.net import *
 
 LOADED_MODEL = {}
-if torch.cuda.device_count() is not 0:
+if torch.cuda.is_available():
     torch.set_default_tensor_type(torch.cuda.FloatTensor)
 
 
@@ -59,6 +59,8 @@ class StyleGAN(WLSerializable):
                 model = get_model(self.method)
                 model.to(device)
                 self.data = model.generate(model.out_layer, z=self.gene)
+            self.gene = self.gene.cpu()
+            self.data = self.data.cpu()
         return self.data
 
     def forward(self, device='cpu', truncation_psi=0.5):
@@ -72,6 +74,8 @@ class StyleGAN(WLSerializable):
             model.truncation_psi = truncation_psi
             model.to(device)
             self.data = model.generate(model.out_layer, z=self.gene)
+            self.gene = self.gene.cpu()
+            self.data = self.data.cpu()
         return self.data
 
     def show(self):
@@ -87,7 +91,7 @@ class StyleGAN(WLSerializable):
         save_image(img, os.path.join(d, name + '-show.png'))
 
     def to_wl(self):
-        img = self.output().clamp(-1, 1)[0]
+        img = self.output()[0].clamp(-1, 1)
         return ToPILImage()(img * 0.5 + 0.5)
 
     @staticmethod
@@ -95,18 +99,22 @@ class StyleGAN(WLSerializable):
         return StyleGAN(method, gene=gene, data=data)
 
 
-def generate(method, num, device='cuda', save=None, truncation_psi=0.75):
-    latents = torch.randn(num, 512).to(device)
+def generate(
+        method, num,
+        device='cuda', save=None,
+        truncation_psi=0.75
+):
     with torch.no_grad():
+        latents = torch.randn(num, 512).to(device)
         model = get_model(method)
         model.truncation_psi = truncation_psi
         model.to(device)
         data = model.generate(model.out_layer, z=latents)
-
-
+    o = [StyleGAN.new(method, i.unsqueeze(0).cpu(), j.unsqueeze(0).cpu()) for i, j in zip(latents, data)]
     if save is not None:
-        pass
-    return data
+        for i in o:
+            i.save(path=save)
+    return o
 
 
 def reinitialize():
@@ -116,7 +124,9 @@ def reinitialize():
 
 
 if __name__ == "__main__":
-    # s = StyleGAN('asuka')
-    # s.show()
-    # s.save('.')
-    m = generate('asuka', 2)
+    s = StyleGAN('asuka')
+    s.output(device='cuda')
+    s.show()
+    s.save('.')
+    m = generate('asuka', 5)
+    generate('asuka', 2, save='.')
