@@ -7,8 +7,8 @@ Base on https://github.com/podgorskiy/StyleGAN_Blobless
 
 Pytorch needed, install via conda first
 
-```shell
-conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
+```sh
+conda install pytorch torchvision cudatoolkit=10.1 -c pytorch -y
 pip install stylegan_zoo
 ```
 
@@ -19,12 +19,14 @@ pip install stylegan_zoo
 from sgan import StyleGAN
 
 s = StyleGAN('asuka')
+# If has GPU
+# s.output(device='cuda')
 s.show()
 ```
 
 - For jupyter:
 
-![](https://user-images.githubusercontent.com/17541209/71553336-29c55980-2a49-11ea-8e94-18b7ab384706.png)
+![](https://user-images.githubusercontent.com/17541209/71554236-b0813300-2a57-11ea-9ee4-fab29d592d9a.png)
 
 - For mathematica:
 
@@ -33,9 +35,11 @@ s.show()
 
 ## License
 
-| Part      | License                        |
-| :-------- | :----------------------------- |
-| Code      | [Apache License Version 2.0]() |
-| [Asuka]() | [CC0 - Creative Commons]()     |
-| [Horo]()  | [CC0 - Creative Commons]()     |
-| [Baby]()  | [CC4.0 Non-Commercial]()        |
+| Part         | License                        |
+| :----------- | :----------------------------- |
+| Code         | [Apache License Version 2.0]() |
+| [Asuka]()    | [CC0 - Creative Commons]()     |
+| [Horo]()     | [CC0 - Creative Commons]()     |
+| [Baby]()     | [CC4.0 Non-Commercial]()       |
+| [FFHQ]()     |                                |
+| [CelebaHQ]() |                                |

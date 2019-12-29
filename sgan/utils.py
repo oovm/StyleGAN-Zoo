@@ -1,7 +1,9 @@
+import os
 import matplotlib.pyplot as plt
 from torchvision.transforms import ToPILImage
 from wolframclient.serializers.serializable import WLSerializable
-
+from torchvision.utils import save_image
+from numpy import savetxt
 from sgan.net import *
 
 LOADED_MODEL = {}
@@ -46,10 +48,15 @@ class StyleGAN(WLSerializable):
 
     def show(self):
         img = self.output()[0].permute(1, 2, 0)
-        plt.imshow(img * 0.5 + 0.5)
+        plt.imshow(img.clamp(-1, 1) * 0.5 + 0.5)
 
-    def save(self, path: str):
-        pass
+    def save(self, path=None):
+        img = self.output()[0] * 0.5 + 0.5
+        src = self.gene
+        name = str(src.__hash__())
+        d = '.' if path is None else path
+        savetxt(os.path.join(d, name + '-gene.txt'), src, delimiter='\n')
+        save_image(img, os.path.join(d, name + '-show.png'))
 
     def to_wl(self):
         img = self.output().clamp(-1, 1)[0]
@@ -60,6 +67,11 @@ class StyleGAN(WLSerializable):
         return StyleGAN(method, gene=gene, data=data)
 
 
+def generate(method, num, device='cuda', save=False):
+    pass
+
+
 if __name__ == "__main__":
     s = StyleGAN('horo')
     s.show()
+    s.save('..')
