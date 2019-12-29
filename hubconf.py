@@ -102,3 +102,23 @@ def style_wanghong(pretrained=False):
         checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.4.0/WangHong-1024x1024.mat'
         model.load_state_dict(torch.hub.load_state_dict_from_url(checkpoint, progress=True))
     return model
+
+
+def style_asian_people(pretrained=False):
+    model = _m(
+        channels=3,
+        mapping_layers=8,
+        latent_size=512,
+
+        layer_count=9,
+        startf=16,
+        maxf=512,
+
+        truncation_psi=0.75,
+        truncation_cutoff=8,
+        model='normal'
+    )
+    if pretrained:
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.5.0/AsianPeople-1024x1024.mat'
+        model.load_state_dict(torch.hub.load_state_dict_from_url(checkpoint, progress=True))
+    return model

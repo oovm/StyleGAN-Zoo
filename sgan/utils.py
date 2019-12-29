@@ -22,12 +22,20 @@ def get_model(name: str):
         model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_horo', pretrained=True)
         LOADED_MODEL[m] = model
         return model
-    elif m == 'ffhq':
-        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_ffhq', pretrained=True)
-        LOADED_MODEL[m] = model
-        return model
     elif m == 'baby':
         model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_baby', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
+    elif m == 'wanghong':
+        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_wanghong', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
+    elif m == 'asianpeople':
+        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_asian_people', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
+    elif m == 'ffhq':
+        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_ffhq', pretrained=True)
         LOADED_MODEL[m] = model
         return model
     else:
