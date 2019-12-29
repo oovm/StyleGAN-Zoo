@@ -19,8 +19,12 @@ def get_model(name: str):
         model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_horo', pretrained=True)
         LOADED_MODEL[m] = model
         return model
+    elif m == 'ffhq':
+        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_ffhq', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
     else:
-        return 0
+        return AttributeError()
 
 
 class StyleGAN(WLSerializable):
