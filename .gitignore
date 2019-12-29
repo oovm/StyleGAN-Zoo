@@ -1,10 +1,13 @@
 # ide
-*.idea
+.idea/
 *.iml
 
 # python
+__pycache__
+dist/
 eval.py
 test.py
+
 
 
 # models

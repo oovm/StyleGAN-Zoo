@@ -1,0 +1,30 @@
+package:
+  name: stylegan_zoo
+  version: 0.1.1
+
+source:
+  url: https://github.com/GalAster/StyleGAN-Zoo
+  git_rev: 1.0.0
+
+build:
+  noarch: python
+  number: 0
+  script: python -m pip install --no-deps --ignore-installed .
+
+requirements:
+  host:
+    - python
+    - pip
+  run:
+    - pytorch
+    - torchvision
+    - numpy
+    - matplotlib
+    - wolframclient
+
+about:
+  home: https://github.com/GalAster/StyleGAN-Zoo
+  license: Apache2
+  summary: 'StyleGAN models for pytorch'
+  description: |
+    StyleGAN models for pytorch
