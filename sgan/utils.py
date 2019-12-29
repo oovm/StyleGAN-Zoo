@@ -8,6 +8,8 @@ from numpy import savetxt
 from sgan.net import *
 
 LOADED_MODEL = {}
+if torch.cuda.device_count() is not 0:
+    torch.set_default_tensor_type(torch.cuda.FloatTensor)
 
 
 def get_model(name: str):
@@ -64,8 +66,7 @@ class StyleGAN(WLSerializable):
         This will permanently change the network settings!
         """
         if self.gene is None:
-            latents = torch.randn(1, 512)
-            self.gene = torch.tensor(latents).float().to(device)
+            self.gene = torch.randn(1, 512).to(device)
         with torch.no_grad():
             model = get_model(self.method)
             model.truncation_psi = truncation_psi
@@ -94,8 +95,18 @@ class StyleGAN(WLSerializable):
         return StyleGAN(method, gene=gene, data=data)
 
 
-def generate(method, num, device='cuda', save=None):
-    pass
+def generate(method, num, device='cuda', save=None, truncation_psi=0.75):
+    latents = torch.randn(num, 512).to(device)
+    with torch.no_grad():
+        model = get_model(method)
+        model.truncation_psi = truncation_psi
+        model.to(device)
+        data = model.generate(model.out_layer, z=latents)
+
+
+    if save is not None:
+        pass
+    return data
 
 
 def reinitialize():
@@ -105,6 +116,7 @@ def reinitialize():
 
 
 if __name__ == "__main__":
-    s = StyleGAN('asuka')
-    s.show()
-    s.save('.')
+    # s = StyleGAN('asuka')
+    # s.show()
+    # s.save('.')
+    m = generate('asuka', 2)
