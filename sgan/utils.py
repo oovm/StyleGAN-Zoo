@@ -2,15 +2,19 @@ import os
 import re
 import math
 import matplotlib.pyplot as plt
+import torch
+
 from torchvision.transforms import ToPILImage
 from wolframclient.serializers.serializable import WLSerializable
 from torchvision.utils import save_image
 from numpy import savetxt
-from sgan.net import *
 
 LOADED_MODEL = {}
 if torch.cuda.is_available():
     torch.set_default_tensor_type(torch.cuda.FloatTensor)
+    DEFAULT_DEVICE = 'cuda'
+else:
+    DEFAULT_DEVICE = 'cpu'
 
 
 def get_model(name: str):
@@ -51,7 +55,7 @@ class StyleGAN(WLSerializable):
         self.data = data
         self.gene = gene
 
-    def output(self, device='cpu'):
+    def output(self, device=DEFAULT_DEVICE):
         if self.gene is None:
             latents = torch.randn(1, 512)
             self.gene = torch.tensor(latents).float().to(device)
@@ -64,7 +68,7 @@ class StyleGAN(WLSerializable):
             self.data = self.data.cpu()
         return self.data
 
-    def forward(self, device='cpu', truncation_psi=0.5):
+    def forward(self, device=DEFAULT_DEVICE, truncation_psi=0.5):
         """
         This will permanently change the network settings!
         """
@@ -102,7 +106,8 @@ class StyleGAN(WLSerializable):
 
 def generate(
         method, num,
-        device='cuda', save=None,
+        device=DEFAULT_DEVICE,
+        save=None,
         batch_size=16,
         truncation_psi=0.75
 ):
@@ -117,32 +122,44 @@ def generate(
         for i in range(math.ceil(num / batch_size)):
             latents = torch.randn(batch_size, 512).to(device)
             batch = model.generate(model.out_layer, z=latents)
-            if save is not None:
+            if save is None:
+                gene.append(latents.cpu())
+                data.append(batch.cpu())
+            else:
                 o = [StyleGAN.new(method, i.unsqueeze(0), j.unsqueeze(0)) for i, j in zip(latents.cpu(), batch.cpu())]
                 for j in o:
                     j.save(path=save)
-            else:
-                gene.append(latents.cpu())
-                data.append(batch.cpu())
     if save is None:
-        gene = torch.stack(gene, dim=1)
-        data = torch.stack(data, dim=1)
+        gene = torch.cat(gene, dim=0)
+        data = torch.cat(data, dim=0)
         o = [StyleGAN.new(method, i.unsqueeze(0), j.unsqueeze(0)) for i, j in zip(gene, data)]
         return o[:num]
     else:
         pass
 
 
-def reinitialize():
+def as_tensor(i):
+    pass
+
+
+def style_mix(model, genes, weights):
+    pass
+
+
+def style_interpolate(model, a, b, steps=24, save=None):
+    pass
+
+
+def reinitialize(device=DEFAULT_DEVICE):
     global LOADED_MODEL
     LOADED_MODEL = {}
     torch.hub.list('GalAster/StyleGAN-Zoo', force_reload=True)
 
 
 if __name__ == "__main__":
-    # s = StyleGAN('asuka')
-    # s.output(device='cuda')
-    # s.show()
-    # s.save('.')
-    m = generate('asuka', 5)
-    # generate('asuka', 2, save='.')
+    t1 = StyleGAN('asuka')
+    t1.output(device='cuda')
+    t1.show()
+    # t1.save('.')
+    t2 = generate('asuka', 5, batch_size=2)
+    # t3 = generate('asuka', 2, save='.')

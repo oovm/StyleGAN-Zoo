@@ -6,10 +6,6 @@ dependencies = ['torch']
 
 def style_asuka(pretrained=False):
     model = _m(
-        channels=3,
-        mapping_layers=8,
-        latent_size=512,
-
         layer_count=8,
         startf=32,
         maxf=512,
@@ -26,10 +22,6 @@ def style_asuka(pretrained=False):
 
 def style_horo(pretrained=False):
     model = _m(
-        channels=3,
-        mapping_layers=8,
-        latent_size=512,
-
         layer_count=8,
         startf=32,
         maxf=512,
@@ -46,10 +38,6 @@ def style_horo(pretrained=False):
 
 def style_ffhq(pretrained=False):
     model = _m(
-        channels=3,
-        mapping_layers=8,
-        latent_size=512,
-
         layer_count=9,
         startf=16,
         maxf=512,
@@ -66,10 +54,6 @@ def style_ffhq(pretrained=False):
 
 def style_baby(pretrained=False):
     model = _m(
-        channels=3,
-        mapping_layers=8,
-        latent_size=512,
-
         layer_count=9,
         startf=16,
         maxf=512,
@@ -79,17 +63,13 @@ def style_baby(pretrained=False):
         model='normal'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.3.0/Baby-1024x1024.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.8.0/Baby-1024x1024.mat'
         model.load_state_dict(torch.hub.load_state_dict_from_url(checkpoint, progress=True))
     return model
 
 
 def style_wanghong(pretrained=False):
     model = _m(
-        channels=3,
-        mapping_layers=8,
-        latent_size=512,
-
         layer_count=9,
         startf=16,
         maxf=512,
@@ -106,10 +86,6 @@ def style_wanghong(pretrained=False):
 
 def style_asian_people(pretrained=False):
     model = _m(
-        channels=3,
-        mapping_layers=8,
-        latent_size=512,
-
         layer_count=9,
         startf=16,
         maxf=512,
