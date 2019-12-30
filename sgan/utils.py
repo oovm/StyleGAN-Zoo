@@ -41,6 +41,14 @@ def get_model(name: str):
         model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_asian_people', pretrained=True)
         LOADED_MODEL[m] = model
         return model
+    elif m == 'asianstar':
+        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_asian_star', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
+    elif m == 'superstar':
+        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_super_star', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
     elif m == 'ffhq':
         model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_ffhq', pretrained=True)
         LOADED_MODEL[m] = model
