@@ -47,7 +47,7 @@ def style_anime_face_a(pretrained=False):
         model='asuka'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.0.0/AnimeFaceA-512x512.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.0.0/AnimeFaceD-512x512.mat'
         model.load_state_dict(torch.hub.load_state_dict_from_url(checkpoint, progress=True))
     return model
 
@@ -63,7 +63,7 @@ def style_anime_face_b(pretrained=False):
         model='asuka'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.0.0/AnimeFaceB-512x512.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.0.0/AnimeFaceC-512x512.mat'
         model.load_state_dict(torch.hub.load_state_dict_from_url(checkpoint, progress=True))
     return model
 
@@ -79,7 +79,7 @@ def style_anime_face_c(pretrained=False):
         model='asuka'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.0.0/AnimeFaceC-512x512.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.0.0/AnimeFaceB-512x512.mat'
         model.load_state_dict(torch.hub.load_state_dict_from_url(checkpoint, progress=True))
     return model
 
@@ -95,7 +95,7 @@ def style_anime_face_d(pretrained=False):
         model='asuka'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.0.0/AnimeFaceD-512x512.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.0.0/AnimeFaceA-512x512.mat'
         model.load_state_dict(torch.hub.load_state_dict_from_url(checkpoint, progress=True))
     return model
 
@@ -106,7 +106,7 @@ def style_anime_face_e(pretrained=False):
         startf=32,
         maxf=512,
 
-        truncation_psi=0.5,
+        truncation_psi=0.4,
         truncation_cutoff=8,
         model='asuka'
     )

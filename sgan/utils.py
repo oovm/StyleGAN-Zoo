@@ -21,6 +21,26 @@ def get_model(name: str):
     m = re.sub('[-_ ]', '', name).lower()
     if m in LOADED_MODEL:
         return LOADED_MODEL[m]
+    elif m == 'animefacea':
+        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_anime_face_a', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
+    elif m == 'animefaceb':
+        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_anime_face_b', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
+    elif m == 'animefacec':
+        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_anime_face_c', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
+    elif m == 'animefaced':
+        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_anime_face_d', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
+    elif m == 'animefacee':
+        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_anime_face_e', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
     elif m == 'asuka':
         model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_asuka', pretrained=True)
         LOADED_MODEL[m] = model
