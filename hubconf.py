@@ -52,6 +52,22 @@ def style_ffhq(pretrained=False):
     return model
 
 
+def style_celeba_hq(pretrained=False):
+    model = _m(
+        layer_count=9,
+        startf=16,
+        maxf=512,
+
+        truncation_psi=0.75,
+        truncation_cutoff=8,
+        model='normal'
+    )
+    if pretrained:
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.3.0/CelebaHQ-1024x1024.mat'
+        model.load_state_dict(torch.hub.load_state_dict_from_url(checkpoint, progress=True))
+    return model
+
+
 def style_baby(pretrained=False):
     model = _m(
         layer_count=9,
@@ -96,5 +112,37 @@ def style_asian_people(pretrained=False):
     )
     if pretrained:
         checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.5.0/AsianPeople-1024x1024.mat'
+        model.load_state_dict(torch.hub.load_state_dict_from_url(checkpoint, progress=True))
+    return model
+
+
+def style_asian_star(pretrained=False):
+    model = _m(
+        layer_count=9,
+        startf=16,
+        maxf=512,
+
+        truncation_psi=0.75,
+        truncation_cutoff=8,
+        model='normal'
+    )
+    if pretrained:
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.6.0/AsianStar-1024x1024.mat'
+        model.load_state_dict(torch.hub.load_state_dict_from_url(checkpoint, progress=True))
+    return model
+
+
+def style_super_star(pretrained=False):
+    model = _m(
+        layer_count=9,
+        startf=16,
+        maxf=512,
+
+        truncation_psi=0.75,
+        truncation_cutoff=8,
+        model='normal'
+    )
+    if pretrained:
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.7.0/SuperStar-1024x1024.mat'
         model.load_state_dict(torch.hub.load_state_dict_from_url(checkpoint, progress=True))
     return model
