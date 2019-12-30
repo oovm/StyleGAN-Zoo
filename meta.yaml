@@ -1,6 +1,6 @@
 package:
   name: stylegan_zoo
-  version: 0.6.1
+  version: 0.7.0
 
 source:
   url: https://github.com/GalAster/StyleGAN-Zoo
