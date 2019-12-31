@@ -93,6 +93,7 @@ class DecodeBlock(nn.Module):
         self.c = c
 
     def forward(self, x, s1, s2):
+        # TODO: disable random when interpolate
         if self.has_first_conv:
             if not self.fused_scale:
                 x = upscale2d(x)
@@ -291,6 +292,7 @@ class Generator(nn.Module):
                 x = self.decode_block[i].forward(x, styles[:, 2 * i + 0], styles[:, 2 * i + 1])
                 if remove_blob and i == prune_at_layer:
                     _x = x.clone()
+                    # TODO: seems not enough
                     ch80 = _x[:, 80]
                     ch73 = _x[:, 73]
 

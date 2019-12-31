@@ -16,12 +16,14 @@ pip install stylegan_zoo
 ## Start
 
 ```python
+import sgan
 from sgan import StyleGAN
 
-s = StyleGAN('asuka')
-# If has GPU
-# s.output(device='cuda')
-s.show()
+
+a = StyleGAN('asuka')
+a.show()
+
+b = sgan.generate('asuka', 5)
 ```
 
 - For jupyter:

@@ -14,7 +14,7 @@ setuptools.setup(
     packages=['sgan'],
     install_requires=[
         # no pytorch
-        'matplotlib'
+        'matplotlib',
         'numpy',
         'wolframclient'
     ],

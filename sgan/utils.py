@@ -202,7 +202,7 @@ def style_interpolate(
         batch_size=16,
         save=None,
 ):
-    i = slerp(as_tensor(a), as_tensor(b), [0.0, 0.25, 0.5, 0.75, 1])
+    i = slerp(as_tensor(a), as_tensor(b), list(map(lambda x: x / (steps - 1), range(steps))))
     i = torch.cat(i, dim=0).to(DEFAULT_DEVICE)
     if method is None and isinstance(a, StyleGAN):
         method = a.method
