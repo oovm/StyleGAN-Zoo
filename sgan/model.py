@@ -42,10 +42,10 @@ class Model(nn.Module):
             truncation_psi=None,
             truncation_cutoff=None,
             style_mixing_prob=None,
-            model='normal'
+            mode='normal'
     ):
         super(Model, self).__init__()
-        self.model = model
+        self.model = mode
         self.out_layer = layer_count - 1
         self.mapping = Mapping(
             num_layers=2 * layer_count,

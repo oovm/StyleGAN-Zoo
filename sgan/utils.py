@@ -4,6 +4,8 @@ import math
 import matplotlib.pyplot as plt
 import torch
 
+from torch.hub import load as pretrained
+
 from torchvision.transforms import ToPILImage
 from wolframclient.serializers.serializable import WLSerializable
 from torchvision.utils import save_image
@@ -21,56 +23,60 @@ def get_model(name: str):
     m = re.sub('[-_ ]', '', name).lower()
     if m in LOADED_MODEL:
         return LOADED_MODEL[m]
-    elif m == 'animefacea':
-        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_anime_face_a', pretrained=True)
-        LOADED_MODEL[m] = model
-        return model
-    elif m == 'animefaceb':
-        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_anime_face_b', pretrained=True)
-        LOADED_MODEL[m] = model
-        return model
-    elif m == 'animefacec':
-        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_anime_face_c', pretrained=True)
-        LOADED_MODEL[m] = model
-        return model
-    elif m == 'animefaced':
-        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_anime_face_d', pretrained=True)
-        LOADED_MODEL[m] = model
-        return model
-    elif m == 'animefacee':
-        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_anime_face_e', pretrained=True)
-        LOADED_MODEL[m] = model
-        return model
     elif m == 'asuka':
-        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_asuka', pretrained=True)
+        model = pretrained('GalAster/StyleGAN-Zoo', 'style_asuka', pretrained=True)
         LOADED_MODEL[m] = model
         return model
     elif m == 'horo':
-        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_horo', pretrained=True)
+        model = pretrained('GalAster/StyleGAN-Zoo', 'style_horo', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
+    elif m == 'animehead':
+        model = pretrained('GalAster/StyleGAN-Zoo', 'style_anime_head', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
+    elif m == 'animefacea':
+        model = pretrained('GalAster/StyleGAN-Zoo', 'style_anime_face_a', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
+    elif m == 'animefaceb':
+        model = pretrained('GalAster/StyleGAN-Zoo', 'style_anime_face_b', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
+    elif m == 'animefacec':
+        model = pretrained('GalAster/StyleGAN-Zoo', 'style_anime_face_c', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
+    elif m == 'animefaced':
+        model = pretrained('GalAster/StyleGAN-Zoo', 'style_anime_face_d', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
+    elif m == 'animefacee':
+        model = pretrained('GalAster/StyleGAN-Zoo', 'style_anime_face_e', pretrained=True)
         LOADED_MODEL[m] = model
         return model
     elif m == 'baby':
-        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_baby', pretrained=True)
+        model = pretrained('GalAster/StyleGAN-Zoo', 'style_baby', pretrained=True)
         LOADED_MODEL[m] = model
         return model
     elif m == 'wanghong':
-        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_wanghong', pretrained=True)
+        model = pretrained('GalAster/StyleGAN-Zoo', 'style_wanghong', pretrained=True)
         LOADED_MODEL[m] = model
         return model
     elif m == 'asianpeople':
-        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_asian_people', pretrained=True)
+        model = pretrained('GalAster/StyleGAN-Zoo', 'style_asian_people', pretrained=True)
         LOADED_MODEL[m] = model
         return model
     elif m == 'asianstar':
-        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_asian_star', pretrained=True)
+        model = pretrained('GalAster/StyleGAN-Zoo', 'style_asian_star', pretrained=True)
         LOADED_MODEL[m] = model
         return model
     elif m == 'superstar':
-        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_super_star', pretrained=True)
+        model = pretrained('GalAster/StyleGAN-Zoo', 'style_super_star', pretrained=True)
         LOADED_MODEL[m] = model
         return model
     elif m == 'ffhq':
-        model = torch.hub.load('GalAster/StyleGAN-Zoo', 'style_ffhq', pretrained=True)
+        model = pretrained('GalAster/StyleGAN-Zoo', 'style_ffhq', pretrained=True)
         LOADED_MODEL[m] = model
         return model
     else:
@@ -230,7 +236,7 @@ def reinitialize(device='cuda'):
 
     LOADED_MODEL = {}
     torch.hub.list('GalAster/StyleGAN-Zoo', force_reload=True)
-    if device is 'cuda' and torch.cuda.is_available():
+    if device in ['cuda', 'gpu'] and torch.cuda.is_available():
         torch.set_default_tensor_type(torch.cuda.FloatTensor)
         DEFAULT_DEVICE = 'cuda'
     else:
