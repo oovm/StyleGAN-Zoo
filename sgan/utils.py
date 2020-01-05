@@ -79,8 +79,12 @@ def get_model(name: str):
         model = pretrained('GalAster/StyleGAN-Zoo', 'style_ffhq', pretrained=True)
         LOADED_MODEL[m] = model
         return model
+    elif m == 'celebahq':
+        model = pretrained('GalAster/StyleGAN-Zoo', 'style_celeba_hq', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
     else:
-        return AttributeError()
+        raise AttributeError()
 
 
 class StyleGAN(WLSerializable):
@@ -222,8 +226,23 @@ def style_interpolate(
     return o
 
 
-def model_settings():
-    pass
+def model_settings(
+        name: str,
+        dlatent_avg_beta=None,
+        truncation_psi=None,
+        truncation_cutoff=None,
+        style_mixing_prob=None,
+        random_mapping=None,
+):
+    model = get_model(name)
+    if truncation_psi is not None:
+        model.truncation_psi = truncation_psi
+    if dlatent_avg_beta is not None:
+        model.dlatent_avg_beta = dlatent_avg_beta
+    if truncation_cutoff is not None:
+        model.truncation_cutoff = truncation_cutoff
+    if style_mixing_prob is not None:
+        model.style_mixing_prob = style_mixing_prob
 
 
 def image_encode():

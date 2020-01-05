@@ -51,6 +51,7 @@ def style_asashio(pretrained=False):
         model.load_state_dict(download(checkpoint, progress=True))
     return model
 
+
 def style_anime_head(pretrained=False):
     model = _m(
         layer_count=8,
@@ -255,5 +256,21 @@ def style_super_star(pretrained=False):
     )
     if pretrained:
         checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.7.0/SuperStar-1024x1024.mat'
+        model.load_state_dict(download(checkpoint, progress=True))
+    return model
+
+
+def style_vessel(pretrained=False):
+    model = _m(
+        layer_count=9,
+        startf=16,
+        maxf=512,
+
+        truncation_psi=0.75,
+        truncation_cutoff=8,
+        mode='normal'
+    )
+    if pretrained:
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.3.0/Vessel-1024x1024.mat'
         model.load_state_dict(download(checkpoint, progress=True))
     return model
