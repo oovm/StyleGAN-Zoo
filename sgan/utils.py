@@ -1,90 +1,19 @@
 import os
-import re
 import math
 import matplotlib.pyplot as plt
 import torch
-
-from torch.hub import load as pretrained
 
 from torchvision.transforms import ToPILImage
 from wolframclient.serializers.serializable import WLSerializable
 from torchvision.utils import save_image
 from numpy import savetxt
+from sgan.cache import get_model
 
-LOADED_MODEL = {}
 if torch.cuda.is_available():
     torch.set_default_tensor_type(torch.cuda.FloatTensor)
     DEFAULT_DEVICE = 'cuda'
 else:
     DEFAULT_DEVICE = 'cpu'
-
-
-def get_model(name: str):
-    m = re.sub('[-_ ]', '', name).lower()
-    if m in LOADED_MODEL:
-        return LOADED_MODEL[m]
-    elif m == 'asuka':
-        model = pretrained('GalAster/StyleGAN-Zoo', 'style_asuka', pretrained=True)
-        LOADED_MODEL[m] = model
-        return model
-    elif m == 'horo':
-        model = pretrained('GalAster/StyleGAN-Zoo', 'style_horo', pretrained=True)
-        LOADED_MODEL[m] = model
-        return model
-    elif m == 'animehead':
-        model = pretrained('GalAster/StyleGAN-Zoo', 'style_anime_head', pretrained=True)
-        LOADED_MODEL[m] = model
-        return model
-    elif m == 'animefacea':
-        model = pretrained('GalAster/StyleGAN-Zoo', 'style_anime_face_a', pretrained=True)
-        LOADED_MODEL[m] = model
-        return model
-    elif m == 'animefaceb':
-        model = pretrained('GalAster/StyleGAN-Zoo', 'style_anime_face_b', pretrained=True)
-        LOADED_MODEL[m] = model
-        return model
-    elif m == 'animefacec':
-        model = pretrained('GalAster/StyleGAN-Zoo', 'style_anime_face_c', pretrained=True)
-        LOADED_MODEL[m] = model
-        return model
-    elif m == 'animefaced':
-        model = pretrained('GalAster/StyleGAN-Zoo', 'style_anime_face_d', pretrained=True)
-        LOADED_MODEL[m] = model
-        return model
-    elif m == 'animefacee':
-        model = pretrained('GalAster/StyleGAN-Zoo', 'style_anime_face_e', pretrained=True)
-        LOADED_MODEL[m] = model
-        return model
-    elif m == 'baby':
-        model = pretrained('GalAster/StyleGAN-Zoo', 'style_baby', pretrained=True)
-        LOADED_MODEL[m] = model
-        return model
-    elif m == 'wanghong':
-        model = pretrained('GalAster/StyleGAN-Zoo', 'style_wanghong', pretrained=True)
-        LOADED_MODEL[m] = model
-        return model
-    elif m == 'asianpeople':
-        model = pretrained('GalAster/StyleGAN-Zoo', 'style_asian_people', pretrained=True)
-        LOADED_MODEL[m] = model
-        return model
-    elif m == 'asianstar':
-        model = pretrained('GalAster/StyleGAN-Zoo', 'style_asian_star', pretrained=True)
-        LOADED_MODEL[m] = model
-        return model
-    elif m == 'superstar':
-        model = pretrained('GalAster/StyleGAN-Zoo', 'style_super_star', pretrained=True)
-        LOADED_MODEL[m] = model
-        return model
-    elif m == 'ffhq':
-        model = pretrained('GalAster/StyleGAN-Zoo', 'style_ffhq', pretrained=True)
-        LOADED_MODEL[m] = model
-        return model
-    elif m == 'celebahq':
-        model = pretrained('GalAster/StyleGAN-Zoo', 'style_celeba_hq', pretrained=True)
-        LOADED_MODEL[m] = model
-        return model
-    else:
-        raise AttributeError()
 
 
 class StyleGAN(WLSerializable):
@@ -106,23 +35,6 @@ class StyleGAN(WLSerializable):
             self.gene = self.gene.cpu()
             self.data = self.data.cpu()
         return self.data
-
-    '''
-    def forward(self, device=DEFAULT_DEVICE, truncation_psi=0.5):
-        """
-        This will permanently change the network settings!
-        """
-        if self.gene is None:
-            self.gene = torch.randn(1, 512).to(device)
-        with torch.no_grad():
-            model = get_model(self.method)
-            model.truncation_psi = truncation_psi
-            model.to(device)
-            self.data = model.generate(model.out_layer, z=self.gene)
-            self.gene = self.gene.cpu()
-            self.data = self.data.cpu()
-        return self.data
-    '''
 
     def show(self):
         img = self.output()[0].permute(1, 2, 0)
@@ -232,7 +144,7 @@ def model_settings(
         truncation_psi=None,
         truncation_cutoff=None,
         style_mixing_prob=None,
-        random_mapping=None,
+        random_noise=None,
 ):
     model = get_model(name)
     if truncation_psi is not None:
@@ -249,25 +161,10 @@ def image_encode():
     pass
 
 
-def reinitialize(device='cuda'):
-    global LOADED_MODEL
-    global DEFAULT_DEVICE
-
-    LOADED_MODEL = {}
-    torch.hub.list('GalAster/StyleGAN-Zoo', force_reload=True)
-    if device in ['cuda', 'gpu'] and torch.cuda.is_available():
-        torch.set_default_tensor_type(torch.cuda.FloatTensor)
-        DEFAULT_DEVICE = 'cuda'
-    else:
-        torch.set_default_tensor_type(torch.FloatTensor)
-        DEFAULT_DEVICE = 'cpu'
-
-
 if __name__ == "__main__":
     # test for normal
     '''
     t1 = StyleGAN('asuka')
-    t1.output(device='cuda')
     t1.show()
     t1.save('.')
     '''
@@ -277,6 +174,7 @@ if __name__ == "__main__":
     t3 = generate('asuka', 2, save='.')
     '''
     # test for interpolate
-
+    '''
     t4, t5 = generate('asuka', 2)
     out = style_interpolate(t4, t5, steps=4)
+    '''

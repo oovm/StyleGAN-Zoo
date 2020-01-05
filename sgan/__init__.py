@@ -1,1 +1,2 @@
-from .utils import StyleGAN, LOADED_MODEL, reinitialize, generate, style_mix, style_interpolate, image_encode
+from .utils import StyleGAN, generate, style_mix, style_interpolate, image_encode
+from .cache import LOADED_MODEL, reinitialize
