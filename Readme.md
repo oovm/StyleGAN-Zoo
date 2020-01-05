@@ -38,6 +38,10 @@ b = sgan.generate('asuka', 5)
 
 ![](https://user-images.githubusercontent.com/17541209/71593157-df89c880-2b6d-11ea-8455-8dd4d2024671.png)
 
+- Style-interpolate
+
+![](https://user-images.githubusercontent.com/17541209/71773895-45c48000-2fa0-11ea-8068-d7e5347a8233.png)
+
 
 ## License
 

@@ -274,3 +274,19 @@ def style_vessel(pretrained=False):
         checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.3.0/Vessel-1024x1024.mat'
         model.load_state_dict(download(checkpoint, progress=True))
     return model
+
+
+def style_qinghua(pretrained=False):
+    model = _m(
+        layer_count=9,
+        startf=16,
+        maxf=512,
+
+        truncation_psi=0.75,
+        truncation_cutoff=8,
+        mode='normal'
+    )
+    if pretrained:
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.3.1/QingHua-1024x1024.mat'
+        model.load_state_dict(download(checkpoint, progress=True))
+    return model
