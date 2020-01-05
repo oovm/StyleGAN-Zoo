@@ -36,6 +36,21 @@ def style_horo(pretrained=False):
     return model
 
 
+def style_asashio(pretrained=False):
+    model = _m(
+        layer_count=8,
+        startf=32,
+        maxf=512,
+
+        truncation_psi=0.5,
+        truncation_cutoff=8,
+        mode='asuka'
+    )
+    if pretrained:
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.2.0/Asashio-512x512.mat'
+        model.load_state_dict(download(checkpoint, progress=True))
+    return model
+
 def style_anime_head(pretrained=False):
     model = _m(
         layer_count=8,
