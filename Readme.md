@@ -40,7 +40,7 @@ StyleGAN('asuka')
 ```python
 from sgan import generate
 
-generate('asuka', 5)
+generate('asuka', 4)
 ```
 
 ![](https://user-images.githubusercontent.com/17541209/71593157-df89c880-2b6d-11ea-8455-8dd4d2024671.png)

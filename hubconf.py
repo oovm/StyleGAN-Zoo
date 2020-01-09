@@ -148,6 +148,22 @@ def style_anime_face_e(pretrained=False):
     return model
 
 
+def style_art_a(pretrained=False):
+    model = _m(
+        layer_count=8,
+        startf=32,
+        maxf=512,
+
+        truncation_psi=0.4,
+        truncation_cutoff=8,
+        mode='asuka'
+    )
+    if pretrained:
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.0.0/AnimeFaceE-512x512.mat'
+        model.load_state_dict(_download(checkpoint, progress=True))
+    return model
+
+
 def style_ffhq(pretrained=False):
     model = _m(
         layer_count=9,

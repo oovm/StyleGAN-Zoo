@@ -1,15 +1,12 @@
 import setuptools
-import yaml
-
-meta = yaml.load(open('./meta.yaml'), Loader=yaml.FullLoader)
 
 setuptools.setup(
-    name=meta['package']['name'],
+    name='stylegan_zoo',
     author='aster',
     author_email='galaster@foxmail.com',
-    url=meta['source']['url'],
-    version=meta['package']['version'],
-    description='',
+    url='https://github.com/GalAster/StyleGAN-Zoo',
+    version='0.12.4',
+    description='none',
 
     packages=['sgan'],
     install_requires=[
