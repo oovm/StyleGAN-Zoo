@@ -1,4 +1,4 @@
-from sgan.cache import load_state_dict_from_url as _download
+from torch.hub import load_state_dict_from_url as _download
 from sgan.model import Model as _m
 
 dependencies = ['torch']
@@ -15,7 +15,7 @@ def style_asuka(pretrained=False):
         mode='asuka'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.0.0/Asuka-512x512.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.0.0/Asuka-512x512-7de0e6.mat'
         model.load_state_dict(_download(checkpoint, progress=True))
     return model
 

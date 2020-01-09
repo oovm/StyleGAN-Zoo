@@ -5,7 +5,7 @@ setuptools.setup(
     author='aster',
     author_email='galaster@foxmail.com',
     url='https://github.com/GalAster/StyleGAN-Zoo',
-    version='0.12.4',
+    version='0.13.0',
     description='none',
 
     packages=['sgan'],

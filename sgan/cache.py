@@ -1,12 +1,7 @@
-import os
-import errno
-import warnings
 import torch
-import sys
 import re
 
 from torch.hub import load as loading
-from torch.hub import _download_url_to_file, _get_torch_home, urlparse
 
 LOADED_MODEL = {}
 
@@ -89,33 +84,6 @@ def get_model(name: str):
         return model
     else:
         raise AttributeError()
-
-
-def load_state_dict_from_url(url, model_dir=None, map_location=None, progress=True):
-    if os.getenv('TORCH_MODEL_ZOO'):
-        warnings.warn('TORCH_MODEL_ZOO is deprecated, please use env TORCH_HOME instead')
-
-    if model_dir is None:
-        torch_home = _get_torch_home()
-        model_dir = os.path.join(torch_home, 'checkpoints')
-
-    try:
-        os.makedirs(model_dir)
-    except OSError as e:
-        if e.errno == errno.EEXIST:
-            # Directory already exists, ignore.
-            pass
-        else:
-            # Unexpected OSError, re-raise.
-            raise
-
-    parts = urlparse(url)
-    filename = os.path.basename(parts.path)
-    cached_file = os.path.join(model_dir, filename)
-    if not os.path.exists(cached_file):
-        sys.stderr.write('Downloading: "{}" to {}\n'.format(url, cached_file))
-        _download_url_to_file(url, cached_file, '000000', progress=progress)
-    return torch.load(cached_file, map_location=map_location)
 
 
 def reinitialize(model=None):
