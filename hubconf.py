@@ -31,7 +31,7 @@ def style_horo(pretrained=False):
         mode='asuka'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.1.0/Horo-512x512.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.1.0/Horo-512x512-822ee4.mat'
         model.load_state_dict(_download(checkpoint, progress=True))
     return model
 
@@ -47,7 +47,7 @@ def style_asashio(pretrained=False):
         mode='asuka'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.2.0/Asashio-512x512.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.2.0/Asashio-512x512-a3c21a.mat'
         model.load_state_dict(_download(checkpoint, progress=True))
     return model
 
@@ -63,7 +63,7 @@ def style_anime_head(pretrained=False):
         mode='asuka'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.1.0/AnimeHead-512x512.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.1.0/AnimeHead-512x512-960a82.mat'
         model.load_state_dict(_download(checkpoint, progress=True))
     return model
 
@@ -79,7 +79,7 @@ def style_anime_face_a(pretrained=False):
         mode='asuka'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.0.0/AnimeFaceD-512x512.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.0.0/AnimeFaceC-512x512-47055c.mat'
         model.load_state_dict(_download(checkpoint, progress=True))
     return model
 
@@ -95,7 +95,7 @@ def style_anime_face_b(pretrained=False):
         mode='asuka'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.0.0/AnimeFaceC-512x512.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.0.0/AnimeFaceA-512x512-feaff1.mat'
         model.load_state_dict(_download(checkpoint, progress=True))
     return model
 
@@ -111,7 +111,7 @@ def style_anime_face_c(pretrained=False):
         mode='asuka'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.0.0/AnimeFaceB-512x512.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.0.0/AnimeFaceB-512x512-41bdee.mat'
         model.load_state_dict(_download(checkpoint, progress=True))
     return model
 
@@ -127,7 +127,7 @@ def style_anime_face_d(pretrained=False):
         mode='asuka'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.0.0/AnimeFaceA-512x512.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.0.0/AnimeFaceD-512x512-3e59ff.mat'
         model.load_state_dict(_download(checkpoint, progress=True))
     return model
 
@@ -143,7 +143,7 @@ def style_anime_face_e(pretrained=False):
         mode='asuka'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.0.0/AnimeFaceE-512x512.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.0.0/AnimeFaceE-512x512-9cfc38.mat'
         model.load_state_dict(_download(checkpoint, progress=True))
     return model
 

@@ -22,7 +22,7 @@ class StyleGAN(WLSerializable):
         self.data = data
         if gene is None:
             latents = torch.randn(1, 512)
-            self.gene = torch.tensor(latents).float()
+            self.gene = torch.tensor(latents)
         else:
             self.gene = gene
 

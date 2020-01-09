@@ -1,5 +1,6 @@
 StyleGAN Zoo
 ============
+[<img src="https://colab.research.google.com/assets/colab-badge.svg" align="center">](https://colab.research.google.com/drive/1HHfyYCfnat4jhOnu34gqotRqzBiDeE_-)
 
 Base on https://github.com/podgorskiy/StyleGAN_Blobless
 
