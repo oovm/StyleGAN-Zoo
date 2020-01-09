@@ -175,7 +175,7 @@ def style_ffhq(pretrained=False):
         mode='normal'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.2.0/FFHQ-1024x1024.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.2.0/FFHQ-1024x1024-4a40cc.mat'
         model.load_state_dict(_download(checkpoint, progress=True))
     return model
 
@@ -191,7 +191,7 @@ def style_celeba_hq(pretrained=False):
         mode='normal'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.3.0/CelebaHQ-1024x1024.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.3.0/CelebaHQ-1024x1024-b5920a.mat'
         model.load_state_dict(_download(checkpoint, progress=True))
     return model
 
@@ -207,7 +207,7 @@ def style_baby(pretrained=False):
         mode='normal'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.8.0/Baby-1024x1024.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.8.0/Baby-1024x1024-b7d3cd.mat'
         model.load_state_dict(_download(checkpoint, progress=True))
     return model
 
@@ -223,7 +223,7 @@ def style_wanghong(pretrained=False):
         mode='normal'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.4.0/WangHong-1024x1024.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.4.0/WangHong-1024x1024-3aff9a.mat'
         model.load_state_dict(_download(checkpoint, progress=True))
     return model
 
@@ -239,7 +239,8 @@ def style_asian_people(pretrained=False):
         mode='normal'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.5.0/AsianPeople-1024x1024.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.5.0/AsianPeople-1024x1024-82c02f' \
+                     '.mat '
         model.load_state_dict(_download(checkpoint, progress=True))
     return model
 
@@ -255,7 +256,7 @@ def style_asian_star(pretrained=False):
         mode='normal'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.6.0/AsianStar-1024x1024.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.6.0/AsianStar-1024x1024-aff808.mat'
         model.load_state_dict(_download(checkpoint, progress=True))
     return model
 
@@ -271,7 +272,7 @@ def style_super_star(pretrained=False):
         mode='normal'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.7.0/SuperStar-1024x1024.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v1.7.0/SuperStar-1024x1024-4141b4.mat'
         model.load_state_dict(_download(checkpoint, progress=True))
     return model
 
@@ -287,7 +288,7 @@ def style_vessel(pretrained=False):
         mode='normal'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.3.0/Vessel-1024x1024.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.3.0/Vessel-1024x1024-ea0817.mat'
         model.load_state_dict(_download(checkpoint, progress=True))
     return model
 
@@ -303,6 +304,6 @@ def style_qinghua(pretrained=False):
         mode='normal'
     )
     if pretrained:
-        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.3.1/QingHua-1024x1024.mat'
+        checkpoint = 'https://github.com/GalAster/StyleGAN-Zoo/releases/download/v2.3.1/QingHua-1024x1024-649fe8.mat'
         model.load_state_dict(_download(checkpoint, progress=True))
     return model
