@@ -4,6 +4,8 @@ StyleGAN Zoo
 
 Base on https://github.com/podgorskiy/StyleGAN_Blobless
 
+Find models on https://github.com/GalAster/StyleGAN-Zoo/releases
+
 ## Install
 
 Pytorch needed, install via conda first

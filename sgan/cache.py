@@ -22,7 +22,7 @@ def get_model(name: str):
         model = loading('GalAster/StyleGAN-Zoo', 'style_asashio', pretrained=True)
         LOADED_MODEL[m] = model
         return model
-    elif m == 'animehead':
+    elif m in ['anime', 'animehead']:
         model = loading('GalAster/StyleGAN-Zoo', 'style_anime_head', pretrained=True)
         LOADED_MODEL[m] = model
         return model
@@ -58,11 +58,11 @@ def get_model(name: str):
         model = loading('GalAster/StyleGAN-Zoo', 'style_asian_people', pretrained=True)
         LOADED_MODEL[m] = model
         return model
-    elif m == 'asianstar':
+    elif m in ['asian', 'asianstar']:
         model = loading('GalAster/StyleGAN-Zoo', 'style_asian_star', pretrained=True)
         LOADED_MODEL[m] = model
         return model
-    elif m == 'superstar':
+    elif m in ['star', 'superstar']:
         model = loading('GalAster/StyleGAN-Zoo', 'style_super_star', pretrained=True)
         LOADED_MODEL[m] = model
         return model
@@ -72,6 +72,10 @@ def get_model(name: str):
         return model
     elif m == 'artb':
         model = loading('GalAster/StyleGAN-Zoo', 'style_art_b', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
+    elif m in ['artc', 'ukiyoefaces']:
+        model = loading('GalAster/StyleGAN-Zoo', 'style_ukiyoe_faces', pretrained=True)
         LOADED_MODEL[m] = model
         return model
     elif m == 'ffhq':
