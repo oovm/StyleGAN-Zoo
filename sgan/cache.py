@@ -26,7 +26,7 @@ def get_model(name: str):
         model = loading('GalAster/StyleGAN-Zoo', 'style_anime_head', pretrained=True)
         LOADED_MODEL[m] = model
         return model
-    elif m == 'animefacea':
+    elif m in ['animeface', 'animefacea']:
         model = loading('GalAster/StyleGAN-Zoo', 'style_anime_face_a', pretrained=True)
         LOADED_MODEL[m] = model
         return model
@@ -64,6 +64,14 @@ def get_model(name: str):
         return model
     elif m == 'superstar':
         model = loading('GalAster/StyleGAN-Zoo', 'style_super_star', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
+    elif m in ['art', 'arta']:
+        model = loading('GalAster/StyleGAN-Zoo', 'style_art_a', pretrained=True)
+        LOADED_MODEL[m] = model
+        return model
+    elif m == 'artb':
+        model = loading('GalAster/StyleGAN-Zoo', 'style_art_b', pretrained=True)
         LOADED_MODEL[m] = model
         return model
     elif m == 'ffhq':
