@@ -59,14 +59,3 @@ style_interpolate(start, end, steps=16)
 
 ![](https://user-images.githubusercontent.com/17541209/71773895-45c48000-2fa0-11ea-8068-d7e5347a8233.png)
 
-
-## License
-
-| Part         | License                        |
-| :----------- | :----------------------------- |
-| Code         | [Apache License Version 2.0]() |
-| [Asuka]()    | [CC0 - Creative Commons]()     |
-| [Horo]()     | [CC0 - Creative Commons]()     |
-| [Baby]()     | [CC4.0 Non-Commercial]()       |
-| [FFHQ]()     |                                |
-| [CelebaHQ]() |                                |
